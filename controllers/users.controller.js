@@ -1,4 +1,4 @@
-const prisma = require('./prisma.controller');
+const { prisma } = require('./prisma.controller');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
@@ -19,7 +19,7 @@ const signUp = async (req, res) => {
     return res.status(400).send({ error: "Password didn't match!" });
   }
 
-  if (await prisma.prisma.user.findFirst({ where: {email: { equals: email }}})) {
+  if (await prisma.user.findFirst({ where: {email: { equals: email }}})) {
     return res.status(400).send({ error: "User is already exist!" });
   }
 
@@ -51,7 +51,7 @@ const signIn = async (req, res) => {
     return res.status(404).send({ error: "Email and password is required!" });
   }
 
-  const user = await prisma.prisma.user.findFirst({
+  const user = await prisma.user.findFirst({
     where: {
       email: { equals: email, },
     },
@@ -76,4 +76,15 @@ const signIn = async (req, res) => {
     });
 };
 
-module.exports = { signUp, signIn };
+const getMe = async (req, res) => {
+  const user = await prisma.user.findFirst({
+    where: { id: { equals: req.user_id } }
+  })
+  if (user) {
+    return res.status(200).send({ user: user });
+  } else {
+    return res.status(404).send({ error: "User doesn't exist!" });
+  }
+}
+
+module.exports = { signUp, signIn, getMe };
