@@ -22,6 +22,7 @@ const {
 
 const {
     getAllFlashcards,
+    getFlashcardByFlashcardId,
     getFlashcardsByChapterId,
     createNewFlashcard,
     updateFlashcard,
@@ -49,6 +50,7 @@ router.delete('/chapters', authorization, deleteChapter);
 
 // flashcards
 router.get('/flashcards', authorization, getAllFlashcards);
+router.get('/flashcards/:flashcard_id', authorization, getFlashcardByFlashcardId);
 router.get('/flashcards/:chapter_id', authorization, getFlashcardsByChapterId);
 router.post('/flashcards', authorization, createNewFlashcard);
 router.put('/flashcards', authorization, updateFlashcard);

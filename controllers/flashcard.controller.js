@@ -14,6 +14,21 @@ const getAllFlashcards = async (req, res) => {
     return res.status(200).json({ flashcards: flashcards });
 }
 
+const getFlashcardByFlashcardId = async (req, res) => {
+    const { flashcard_id } = req.params;
+    const flashcard = await prisma.flashCard.findFirst({
+        where: {
+            id: flashcard_id,
+            chapter: {
+                subject: {
+                    learning: { user_id: req.user_id }
+                }
+            }
+        }
+    });
+    return res.status(200).json({ flashcard: flashcard });
+}
+
 const getFlashcardsByChapterId = async (req, res) => {
     const { chapter_id } = req.params;
     const flashcards = await prisma.flashCard.findMany({
@@ -93,6 +108,7 @@ const deleteFlashcard = async (req, res) => {
 
 module.exports = {
     getAllFlashcards,
+    getFlashcardByFlashcardId,
     getFlashcardsByChapterId,
     createNewFlashcard,
     updateFlashcard,
