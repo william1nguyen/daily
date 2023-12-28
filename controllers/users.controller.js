@@ -1,4 +1,4 @@
-const { prisma } = require('./prisma.controller');
+const { prisma, createUser } = require('./prisma.controller');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
@@ -34,7 +34,7 @@ const signUp = async (req, res) => {
     hashedPassword: hashedPassword
   }
 
-  const user = await prisma.createUser(user_req);
+  const user = await createUser(user_req);
 
   return res
     .status(201)
