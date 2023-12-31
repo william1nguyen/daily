@@ -33,7 +33,7 @@ const createNewSubject = async (req, res) => {
             subject: subject
         });
     } catch (error) {
-        return res.status(404).json({ error: "Learnging is not found!" })
+        return res.status(404).json({ error: "Learning is not found!" })
     }
 }
 
