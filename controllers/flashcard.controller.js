@@ -30,7 +30,7 @@ const getFlashcardByFlashcardId = async (req, res) => {
 }
 
 const getFlashcardsByChapterId = async (req, res) => {
-    const { chapter_id } = req.query;
+    const { chapter_id } = req.params;
     const flashcards = await prisma.flashCard.findMany({
         where: {
             chapter: {
