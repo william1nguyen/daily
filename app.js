@@ -26,6 +26,14 @@ app.use(express.static(path.join(__dirname, 'out')));
 
 app.use('/', express.static('./out'));
 
+app.get('/pages/auth/login', (req, res) => {
+  res.sendFile(path.join(__dirname, 'out', 'pages/auth', `login.html`));
+});
+
+app.get('/pages/auth/signup', (req, res) => {
+  res.sendFile(path.join(__dirname, 'out', 'pages/auth', `signup.html`));
+});
+
 app.use('/api', authorization, apiRouter);
 app.use('/users', usersRouter);
 
