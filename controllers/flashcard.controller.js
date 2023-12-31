@@ -66,7 +66,6 @@ const createNewFlashcard = async (req, res) => {
 const updateFlashcard = async (req, res) => {
     const { flashcard_id, front_content, back_content } = req.body;
     try {
-        console.log(flashcard_id, front_content, back_content);
         await prisma.flashCard.update({
             where: {
                 id: flashcard_id,
@@ -83,7 +82,6 @@ const updateFlashcard = async (req, res) => {
         });
         return res.status(200).json({ message: "Updated!" });
     } catch (error) {
-        console.log(error);
         return res.status(400).json({ error: "Updated failed!" });
     }
 }
