@@ -24,6 +24,8 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'out')));
 
+app.use('/', express.static('./out'));
+
 app.use('/api', authorization, apiRouter);
 app.use('/users', usersRouter);
 
@@ -41,10 +43,6 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
-});
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'out', 'index.html'));
 });
 
 const PORT = process.env.PORT || 3000;
