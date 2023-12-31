@@ -34,6 +34,11 @@ const signUp = async (req, res) => {
   }
 
   const user = await createUser(user_req);
+  await prisma.learning.create({ 
+    data: { 
+        user_id: user.id
+    } 
+  });
 
   return res
     .status(201)
