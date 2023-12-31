@@ -5,9 +5,9 @@ const bcrypt = require('bcrypt');
 const PASSWORD_MIN_LENGTH = 8;
 
 const signUp = async (req, res) => {
-  const { fullname, username, email, password, passwordConfirm } = req.body;
+  const { username, email, password, passwordConfirm } = req.body;
   
-  if (!fullname || !username || !email || !password || !passwordConfirm) {
+  if (!username || !email || !password || !passwordConfirm) {
     return res.status(400).send({ error: "Some fields are missed!" });
   }
 
@@ -28,7 +28,6 @@ const signUp = async (req, res) => {
   const hashedPassword = await bcrypt.hash(password, salt);
 
   const user_req = {
-    fullname: fullname,
     username: username,
     email: email,
     hashedPassword: hashedPassword
