@@ -21,6 +21,44 @@
 > [!WARNING]
 > asdf will create `.tool-versions` file in order to determine nodejs version.
 
+## How to connect to local database
+
+- Connect to `prisma`
+
+```
+$ npm install @prisma/client
+$ npx prisma init
+```
+
+- Install `sql` on terminal and create new user
+
+```
+$ CREATE USER 'user'@'localhost' IDENTIFIED BY 'password'
+$ GRANT ALL PRIVILEGES ON *.* TO 'user'@'localhost' WITH GRANT OPTION;
+$ FLUSH PRIVILEGES;
+```
+
+- CREATE DATABASE `daily`
+
+```
+$ CREATE DATABASE daily;
+```
+
+- Change `DATABASE_URL` on .env to `mysql://daily:password@localhost:3306/daily`
+
+- Create / Modify `models` on file `schema.prisma`
+- Migrate
+
+```
+$ npx prisma migrate dev --preview-feature
+```
+
+- Run `prisma-cli`:
+
+```
+$ npx prisma studio
+```
+
 ## How to run
 
 ### Local setup
@@ -35,6 +73,7 @@
   Create a .env file from the provided .env.example and update the values accordingly.
   ```
   $ cp .env.example .env
+  $ export $(grep -v '^#' .env | xargs)
   ```
 
 - **Initialize models database with Prisma**
