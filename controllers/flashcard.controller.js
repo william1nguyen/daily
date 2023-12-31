@@ -16,6 +16,7 @@ const getAllFlashcards = async (req, res) => {
 
 const getFlashcardByFlashcardId = async (req, res) => {
     const { flashcard_id } = req.params;
+    console.log("HELLO: ", flashcard_id);
     const flashcard = await prisma.flashCard.findFirst({
         where: {
             id: flashcard_id,
@@ -30,7 +31,7 @@ const getFlashcardByFlashcardId = async (req, res) => {
 }
 
 const getFlashcardsByChapterId = async (req, res) => {
-    const { chapter_id } = req.params;
+    const { chapter_id } = req.query;
     const flashcards = await prisma.flashCard.findMany({
         where: {
             chapter: {
