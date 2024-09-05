@@ -1,5 +1,7 @@
 FROM node:18
 
+ARG DATABASE_URL
+
 RUN apt-get update
 RUN apt-get install -y openssl
 
